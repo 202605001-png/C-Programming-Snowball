@@ -388,9 +388,13 @@ static int enter_task(Task* task, int today)
     char title[MAX_TITLE + 2];
 
     for (;;) {
-        printf("할 일 입력: ");
+        printf("할 일 입력 (빈 줄로 취소): ");
         int result = read_line(title, sizeof title);
         if (result == 0) {
+            return 0;
+        }
+        if (result == 1 && title[0] == '\0') {
+            puts("할 일 입력을 취소했습니다.");
             return 0;
         }
         if (result == 1 && title[strspn(title, " \t\r")] != '\0') {
